@@ -1,6 +1,9 @@
 package com.chuoi.services;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -28,16 +31,37 @@ public class StudentService {
 		this.students = students;
 	}
 
-	public void addStudent(Student newStudent) {
+	// Return true if add student successfully
+	public boolean addStudent(Student newStudent) {
 		this.readFromDatabase();
 		Gson gson = new Gson();
 
-		boolean isDuplicatedStudentCode = false;
-		
+		for (int i = 0; i < students.size(); i++) {
+			if (students.get(i).getStudentCode().equals(newStudent.getStudentCode())) {
+				return false;
+			}
+		}
 
 		this.students.add(newStudent);
 
 		FileUtil.writeFile(databaseUrl, gson.toJson(students));
+
+		return true;
+	}
+
+	// Nếu không filter name, studentCode thì để chuỗi rỗng
+	// Nếu không filter creditCount hoặc studyProgramId thì truyền vào -1
+	public List<Student> getStudentsWithFilter(String name, String studentCode, int creditCount, int studyProgramId) {
+		List<Student> filteredStudents = students.stream()
+				.filter(_student -> _student.getName().toLowerCase().contains(name)
+						&& (creditCount != -1 ? _student.getStudentCode().toLowerCase().contains(studentCode) : true)
+						&& (studyProgramId != -1
+								? _student.getCreditCount() == creditCount
+										&& _student.getStudyProgramId() == studyProgramId
+								: true))
+				.collect(Collectors.toList());
+
+		return filteredStudents;
 	}
 
 	private void readFromDatabase() {
