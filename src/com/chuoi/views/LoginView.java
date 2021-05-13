@@ -1,5 +1,5 @@
 package com.chuoi.views;
 
-public class Login {
+public class LoginView {
 
 }

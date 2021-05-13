@@ -1,16 +1,17 @@
 package com.chuoi.models;
 
 public class Student {
-	private int id;
+	private String studentCode;
 	private String name;
 	private String major;
 	private int studyProgramId;
 	private int creditCount;
 	private int subjectCount;
 
-	public Student(int id, String name, String major, int studyProgramId, int creditCount, int subjectCount) {
+	public Student(String studentCode, String name, String major, int studyProgramId, int creditCount,
+			int subjectCount) {
 		super();
-		this.id = id;
+		this.studentCode = studentCode;
 		this.name = name;
 		this.major = major;
 		this.studyProgramId = studyProgramId;
@@ -18,12 +19,12 @@ public class Student {
 		this.subjectCount = subjectCount;
 	}
 
-	public int getId() {
-		return id;
+	public String getStudentCode() {
+		return studentCode;
 	}
 
-	public void setMSSV(int id) {
-		this.id = id;
+	public void setStudentCode(String studentCode) {
+		this.studentCode = studentCode;
 	}
 
 	public String getName() {
