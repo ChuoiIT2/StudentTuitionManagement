@@ -10,6 +10,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
@@ -22,9 +23,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class StudentView extends JFrame {
 
+	protected static final String JOptionpane = null;
 	private JPanel contentPane;
 	private JTextField nameShow;
 	private JTextField studentCodeShow;
@@ -36,6 +40,18 @@ public class StudentView extends JFrame {
 	private JTextField inputSearch;
 	private JTextField totalTuitionShow;
 	private JTextField totalStudentShow;
+	
+	public void ShowStudentView(StudentView frame) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	
 	public StudentView() {
 		setBackground(Color.WHITE);
@@ -114,7 +130,7 @@ public class StudentView extends JFrame {
 		panel.add(editButton);
 		
 		JButton deleteButton = new JButton("Xóa Sinh Viên");
-		deleteButton.setBounds(238, 176, 100, 29);
+		deleteButton.setBounds(238, 176, 110, 29);
 		panel.add(deleteButton);
 		
 		JButton addButton = new JButton("+ Sinh Viên Mới");
@@ -135,12 +151,11 @@ public class StudentView extends JFrame {
 		panel.add(unitLabel);
 		
 		JButton saveButton = new JButton("Lưu");
-		saveButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		saveButton.setBounds(394, 176, 92, 29);
+		saveButton.setBounds(392, 179, 110, 29);
 		panel.add(saveButton);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(null, "Danh S\u00E1ch Sinh Vi\u00EAn", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBorder(new TitledBorder(null, "Danh Sách Sinh Viên", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(6, 247, 759, 419);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
@@ -194,6 +209,7 @@ public class StudentView extends JFrame {
 		showListSV.setBounds(27, 58, 710, 359);
 		panel_1.add(showListSV);
 		
+		
 		JButton searchButton = new JButton("Tìm Kiếm");
 		searchButton.setBounds(27, 16, 109, 29);
 		panel_1.add(searchButton);
@@ -242,10 +258,3 @@ public class StudentView extends JFrame {
 		return showListSV;
 	}
 }
-
-
-
-
-
-
-
