@@ -1,29 +1,22 @@
 [ {
   "studentCode" : "20194345",
-  "name" : "nhat",
-  "major" : "mj",
-  "studyProgramId" : 1,
-  "creditCount" : 10,
-  "subjectCount" : 10
+  "name" : "nhat dep trai",
+  "major" : "major2",
+  "studyProgramId" : 10,
+  "creditCount" : 1,
+  "subjectCount" : 1
 }, {
-  "studentCode" : "20194345",
-  "name" : "kien",
-  "major" : "mj",
-  "studyProgramId" : 1,
-  "creditCount" : 10,
-  "subjectCount" : 10
-}, {
-  "studentCode" : "20194345",
+  "studentCode" : "20194347",
   "name" : "toàn ăn cứt",
   "major" : "mj",
   "studyProgramId" : 1,
-  "creditCount" : 10,
-  "subjectCount" : 10
+  "creditCount" : 12,
+  "subjectCount" : 1
 }, {
-  "studentCode" : "20194345",
+  "studentCode" : "20194348",
   "name" : "kiên rô béo",
   "major" : "mj",
-  "studyProgramId" : 1,
-  "creditCount" : 10,
-  "subjectCount" : 10
+  "studyProgramId" : 2,
+  "creditCount" : 12,
+  "subjectCount" : 2
 } ]
