@@ -15,6 +15,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import com.chuoi.models.Account;
+
 public class LoginView {
 	// Assign main panel
 	
@@ -105,8 +106,6 @@ public class LoginView {
 		return admin;
 	}
 	
-	
-	
 	public void showMess(String mess)
 	{
 		showMess.setText(mess);
@@ -137,5 +136,4 @@ public class LoginView {
 	public void addLoginListener(ActionListener e) {
 		buttonLogin.addActionListener(e);
 	}
-	
 }
