@@ -1,20 +1,28 @@
-package com.kiennt.ex6;
+package com.chuoi.views;
+
+import com.chuoi.models.Student;
+import com.chuoi.configs.Constant;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
 
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.util.List;
+
 public class StudentView {
 	private JFrame frame;
 	private JPanel studentPanel,tablePanel;
@@ -24,15 +32,22 @@ public class StudentView {
 	private JTextField setName;
 	private JTextField setMajor;
 	private JTextField setID;
-	
 	private JRadioButton creditSelected,subjectSelected;
 	private JTextField setCredit;
 	private JTextField setSubject;
 	private JLabel creditLabel;
 	private JLabel subjectLabel;
+	private JButton addButton;
+	private JButton deleteButton;
+	private JButton editButton;
+	private JButton findingButton;
+	private ButtonGroup buttonGroup;
 	
 	private Object [] column = {"MSSV", "Họ và tên", "Chuyên ngành", "Hình thức học" , "Số TC", "Số HP", "Học phí"};
-	private Object [] data = new Object[0];
+	private Object [] data = new Object[7];
+	
+	private int studyProgramID = Constant.DEFAULT_STUDY_PROGRAM_ID;
+	
 	public StudentView()
 	{
 		initialize();
@@ -60,7 +75,7 @@ public class StudentView {
 		
 		setStudentTable();
 		setContentPanel();
-		frame.setVisible(true);
+		frame.setVisible(false);
 		frame.setResizable(false);
 	}
 	// set label and other component
@@ -84,15 +99,40 @@ public class StudentView {
 		
 		creditSelected = new JRadioButton("Theo Tín Chỉ");
 		creditSelected.setFont(new Font("Dialog", Font.BOLD, 12));
+		creditSelected.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(creditSelected.isSelected())
+				{
+					studyProgramID= Constant.STUDY_PROGRAM_CREDIT_ID;
+					setCredit.setText("");
+					setSubject.setText("0");
+					setCredit.setEnabled(true);
+					setSubject.setEnabled(false);
+				}
+			}
+		});
 		creditSelected.setBounds(148, 110, 184, 31);
 		studentPanel.add(creditSelected);
 		
 		subjectSelected = new JRadioButton("Theo Chương Trình Mẫu");
 		subjectSelected.setFont(new Font("Dialog", Font.BOLD, 12));
+		subjectSelected.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				if(subjectSelected.isSelected())
+				{
+					studyProgramID = Constant.STUDY_PROGRAM_MODEL_ID;
+					setSubject.setText("");
+					setCredit.setText("0");
+					setSubject.setEnabled(true);
+					setCredit.setEnabled(false);
+				}
+			}
+		});
 		subjectSelected.setBounds(394, 110, 222, 31);
 		studentPanel.add(subjectSelected);
 		
-		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup = new ButtonGroup();
 		buttonGroup.add(creditSelected);
 		buttonGroup.add(subjectSelected);
 		
@@ -135,16 +175,21 @@ public class StudentView {
 		subjectLabel.setBounds(406, 158, 105, 26);
 		studentPanel.add(subjectLabel);
 		
-		JButton addButton = new JButton("Thêm");
+		addButton = new JButton("Thêm");
+		/*
+		 * set ActionListener for addButton
+		 * @author : Ninh Trung Kiên
+		 * */
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				model.addRow(data);
+				addButtonListener(this);
 			}
 		});
 		addButton.setBounds(41, 221, 137, 25);
 		studentPanel.add(addButton);
 		
-		JButton deleteButton = new JButton("Xóa");
+		deleteButton = new JButton("Xóa");
+		
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -152,17 +197,17 @@ public class StudentView {
 		deleteButton.setBounds(378, 221, 137, 25);
 		studentPanel.add(deleteButton);
 		
-		JButton editButton = new JButton("Sửa");
+		editButton = new JButton("Sửa");
 		editButton.setBounds(208, 221, 137, 25);
 		studentPanel.add(editButton);
 		
-		JButton tuitionButton = new JButton("Tính học phí");
-		tuitionButton.addActionListener(new ActionListener() {
+		findingButton = new JButton("Tìm");
+		findingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		tuitionButton.setBounds(548, 221, 137, 25);
-		studentPanel.add(tuitionButton);
+		findingButton.setBounds(548, 221, 137, 25);
+		studentPanel.add(findingButton);
 	}
 	private void setStudentTable()
 	{
@@ -176,6 +221,87 @@ public class StudentView {
 		table.setModel(model);
 		scrollTable.setViewportView(table);
 		
+	}
+	public Student getStudentInfo() {
+		String studentCode = setID.getText();
+		String studentName = setName.getText();
+		String studentMajor = setMajor.getText();
+		int studyProgramID = this.studyProgramID;
+		int studentCredit = Integer.parseInt(setCredit.getText().trim());
+		int studentSubject = Integer.parseInt(setSubject.getText().trim());
+		Student student = new Student(studentCode, studentName, studentMajor, studyProgramID, studentCredit, studentSubject);
+		return student;
+	}
+	public void showListStudent(List<Student> studentList)
+	{
+		int size = studentList.size();
+		
+		Object [][] students = new Object[size][7];
+		for(int i=0;i<size;i++)
+		{
+			students[i][0]=studentList.get(i).getStudentCode();
+			students[i][1]=studentList.get(i).getName();
+			students[i][2]=studentList.get(i).getMajor();
+			if(studentList.get(i).getStudyProgramId()==1)
+			{
+				students[i][3]="Tín chỉ";
+			}
+			else if(studentList.get(i).getStudyProgramId()==2) {
+				students[i][3]="Chương trình mẫu";
+			}
+			else {
+				students[i][3]="Chọn đi";	
+			}
+			students[i][4]=studentList.get(i).getCreditCount();
+			students[i][5]=studentList.get(i).getSubjectCount();
+		}
+		
+		table.setModel(new DefaultTableModel(students, column));
+	}
+	
+	public void showAddMessage(String message)
+	{
+		JOptionPane.showMessageDialog(null, message);
+	}
+	
+	public String getDeleteOption()
+	{
+		String idSelect = JOptionPane.showInputDialog(frame, "Nhập MSSV muốn xóa: ","Xóa sinh viên",JOptionPane.DEFAULT_OPTION);
+		return idSelect;
+	}
+	public void clearAllContent()
+	{
+		setName.setText("");
+		setMajor.setText("");
+		setID.setText("");
+		buttonGroup.clearSelection();
+		setCredit.setEnabled(true);
+		setCredit.setText("");
+		setSubject.setEnabled(true);
+		setSubject.setText("");
+	}
+	public void addButtonListener(ActionListener listener)
+	{
+		addButton.addActionListener(listener);
+	}
+	
+	public void deleteButtonListener(ActionListener listener)
+	{
+		deleteButton.addActionListener(listener);
+	}
+	
+	public void editButtonListener(ActionListener listener)
+	{
+		editButton.addActionListener(listener);
+	}
+	
+	public void findingButtonListener(ActionListener listener)
+	{
+		findingButton.addActionListener(listener);
+	}
+	public void setFrameVisible()
+	{
+		frame.setVisible(true);
 	}
 	
 }
