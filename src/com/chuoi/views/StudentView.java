@@ -1,260 +1,362 @@
 package com.chuoi.views;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.SystemColor;
+import com.chuoi.models.Student;
+import com.chuoi.configs.Constant;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
-import javax.swing.border.EtchedBorder;
-import java.awt.Color;
-import javax.swing.JTable;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.border.LineBorder;
-import javax.swing.border.SoftBevelBorder;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class StudentView extends JFrame {
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
-	protected static final String JOptionpane = null;
-	private JPanel contentPane;
-	private JTextField nameShow;
-	private JTextField studentCodeShow;
-	private JTextField majorShow;
-	private JTextField creditCountShow;
-	private JTextField subjectCountShow;
-	private JTable showListSV;
-	private JTextField tuitionShow;
-	private JTextField inputSearch;
-	private JTextField totalTuitionShow;
-	private JTextField totalStudentShow;
+import java.util.List;
+
+public class StudentView {
+	//tạo các attribute liên quan
+	private JFrame frame;
+	private JPanel studentPanel,tablePanel;
+	private JTable table;
+	private JScrollPane scrollTable;
+	private JTextField setName;
+	private JTextField setMajor;
+	private JTextField setStudentCode;
+	private JRadioButton creditSelected,subjectSelected;
+	private JTextField setCredit;
+	private JTextField setSubject;
+	private JLabel creditLabel;
+	private JLabel subjectLabel;
+	private JButton addButton;
+	private JButton deleteButton;
+	private JButton editButton;
+	private JButton findingButton;
+	private ButtonGroup buttonGroup;
+	private DefaultTableModel model;
 	
-	public void ShowStudentView(StudentView frame) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+	private Object [] column = {"MSSV", "Họ và tên", "Chuyên ngành", "Hình thức học" , "Số TC", "Số HP", "Học phí"};
+	
+	private int studyProgramID = Constant.DEFAULT_STUDY_PROGRAM_ID;
+	
+	public StudentView()
+	{
+		initialize();
+	}
+	private void initialize()
+	{
+		//set main frame
+		frame = new JFrame();
+		frame.setBounds(100, 100, 770, 750);
+		frame.setTitle("Quản lý học phí sinh viên");
+		frame.getContentPane().setLayout(null);
+		
+		//tạo panel chứa table
+		tablePanel = new JPanel();
+		tablePanel.setBounds(12, 321, 735, 386);
+		tablePanel.setBorder(new TitledBorder(null, "Danh sách sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		frame.getContentPane().add(tablePanel);
+		tablePanel.setLayout(null);
+		// panel chứa thông tin sinh viên
+		studentPanel = new JPanel();
+		studentPanel.setBounds(12, 12, 735, 297);
+		studentPanel.setBorder(new TitledBorder(null, "Thông tin sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		frame.getContentPane().add(studentPanel);
+		studentPanel.setLayout(null);
+		
+		// gọi các method làm các chức năng
+		setStudentTable();
+		setContentPanel();
+		frame.setVisible(false);
+		frame.setResizable(false);
+	}
+	// set label and other component
+	private void setContentPanel()
+	{
+		setName = new JTextField();
+		setName.setBounds(151, 26, 209, 26);
+		studentPanel.add(setName);
+		setName.setColumns(10);
+		
+		setMajor = new JTextField();
+		setMajor.setColumns(10);
+		setMajor.setBounds(151, 76, 209, 26);
+		studentPanel.add(setMajor);
+		
+		setStudentCode = new JTextField();
+		setStudentCode.setColumns(10);
+		setStudentCode.setBounds(514, 26, 130, 26);
+		setStudentCode.setVisible(true);
+		studentPanel.add(setStudentCode);
+		
+		creditSelected = new JRadioButton("Theo Tín Chỉ");
+		creditSelected.setFont(new Font("Dialog", Font.BOLD, 12));
+		creditSelected.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(creditSelected.isSelected())
+				{
+					studyProgramID= Constant.STUDY_PROGRAM_CREDIT_ID;
+					setCredit.setText("");
+					setSubject.setText("0");
+					setCredit.setEnabled(true);
+					setSubject.setEnabled(false);
 				}
 			}
 		});
-	}
-	
-	public StudentView() {
-		setBackground(Color.WHITE);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 771, 750);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		creditSelected.setBounds(148, 110, 184, 31);
+		studentPanel.add(creditSelected);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(6, 11, 741, 224);
-		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Th\u00F4ng Tin Sinh Vi\u00EAn", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JLabel nameLaybel = new JLabel("Họ Và Tên");
-		nameLaybel.setBounds(51, 26, 81, 16);
-		panel.add(nameLaybel);
-		
-		nameShow = new JTextField();
-		nameShow.setBounds(158, 21, 190, 26);
-		panel.add(nameShow);
-		nameShow.setColumns(10);
-		
-		JLabel studentCodeLabel = new JLabel("MSSV :");
-		studentCodeLabel.setBounds(392, 26, 61, 16);
-		panel.add(studentCodeLabel);
-		
-		studentCodeShow = new JTextField();
-		studentCodeShow.setBounds(497, 21, 130, 26);
-		panel.add(studentCodeShow);
-		studentCodeShow.setColumns(10);
-		
-		JLabel majorLabel = new JLabel("Chuyên Ngành :");
-		majorLabel.setBounds(51, 54, 100, 16);
-		panel.add(majorLabel);
-		
-		majorShow = new JTextField();
-		majorShow.setBounds(158, 49, 190, 26);
-		majorShow.setColumns(10);
-		panel.add(majorShow);
-		
-		JLabel studyProgramIdLabel = new JLabel("Hình Thức Học");
-		studyProgramIdLabel.setBounds(51, 82, 130, 16);
-		panel.add(studyProgramIdLabel);
-		
-		JCheckBox creditCheckBox = new JCheckBox("Theo Tín Chỉ");
-		creditCheckBox.setBounds(158, 78, 180, 23);
-		panel.add(creditCheckBox);
-		
-		JCheckBox subjectCheckBox = new JCheckBox("Theo Chương Trình Mẫu");
-		subjectCheckBox.setBounds(365, 78, 196, 23);
-		panel.add(subjectCheckBox);
-		
-		JLabel creditCountCLabel = new JLabel("Số Tín Chỉ");
-		creditCountCLabel.setBounds(51, 110, 81, 16);
-		panel.add(creditCountCLabel);
-		
-		creditCountShow = new JTextField();
-		creditCountShow.setBounds(158, 105, 130, 26);
-		panel.add(creditCountShow);
-		creditCountShow.setColumns(10);
-		
-		JLabel subjectCountLabel = new JLabel("Số Học Phần");
-		subjectCountLabel.setBounds(394, 113, 116, 16);
-		panel.add(subjectCountLabel);
-		
-		subjectCountShow = new JTextField();
-		subjectCountShow.setBounds(497, 105, 130, 26);
-		panel.add(subjectCountShow);
-		subjectCountShow.setColumns(10);
-		
-		JButton editButton = new JButton("Chỉnh Sửa");
-		editButton.setBounds(91, 176, 100, 29);
-		panel.add(editButton);
-		
-		JButton deleteButton = new JButton("Xóa Sinh Viên");
-		deleteButton.setBounds(238, 176, 110, 29);
-		panel.add(deleteButton);
-		
-		JButton addButton = new JButton("+ Sinh Viên Mới");
-		addButton.setBounds(554, 176, 116, 29);
-		panel.add(addButton);
-		
-		JLabel tuitionLabel = new JLabel("Học Phí");
-		tuitionLabel.setBounds(51, 138, 61, 16);
-		panel.add(tuitionLabel);
-		
-		tuitionShow = new JTextField();
-		tuitionShow.setBounds(158, 133, 130, 26);
-		panel.add(tuitionShow);
-		tuitionShow.setColumns(10);
-		
-		JLabel unitLabel = new JLabel("(VNĐ)");
-		unitLabel.setBounds(300, 138, 61, 16);
-		panel.add(unitLabel);
-		
-		JButton saveButton = new JButton("Lưu");
-		saveButton.setBounds(392, 179, 110, 29);
-		panel.add(saveButton);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(null, "Danh Sách Sinh Viên", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(6, 247, 759, 419);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
-		
-		showListSV = new JTable();
-		showListSV.setBorder(new LineBorder(new Color(0, 0, 0)));
-		showListSV.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"STT", "H\u1ECD V\u00E0 T\u00EAn", "MSSV", "Nguy\u1EC5n Ng\u00E0nh", "H\u00ECnh Th\u1EE9c H\u1ECDc", "S\u1ED1 TC", "S\u1ED1 HP", "H\u1ECDc Ph\u00ED (VN\u0110)"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, String.class, Integer.class, String.class, String.class, Integer.class, Integer.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
+		subjectSelected = new JRadioButton("Theo Chương Trình Mẫu");
+		subjectSelected.setFont(new Font("Dialog", Font.BOLD, 12));
+		subjectSelected.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				if(subjectSelected.isSelected())
+				{
+					studyProgramID = Constant.STUDY_PROGRAM_MODEL_ID;
+					setSubject.setText("");
+					setCredit.setText("0");
+					setSubject.setEnabled(true);
+					setCredit.setEnabled(false);
+				}
 			}
 		});
-		showListSV.getColumnModel().getColumn(0).setPreferredWidth(38);
-		showListSV.getColumnModel().getColumn(1).setPreferredWidth(127);
-		showListSV.getColumnModel().getColumn(2).setPreferredWidth(60);
-		showListSV.getColumnModel().getColumn(3).setPreferredWidth(129);
-		showListSV.getColumnModel().getColumn(4).setPreferredWidth(144);
-		showListSV.getColumnModel().getColumn(5).setPreferredWidth(47);
-		showListSV.getColumnModel().getColumn(6).setPreferredWidth(45);
-		showListSV.getColumnModel().getColumn(7).setPreferredWidth(116);
-		showListSV.setBounds(27, 58, 710, 359);
-		panel_1.add(showListSV);
+		subjectSelected.setBounds(394, 110, 222, 31);
+		studentPanel.add(subjectSelected);
 		
+		buttonGroup = new ButtonGroup();
+		buttonGroup.add(creditSelected);
+		buttonGroup.add(subjectSelected);
 		
-		JButton searchButton = new JButton("Tìm Kiếm");
-		searchButton.setBounds(27, 16, 109, 29);
-		panel_1.add(searchButton);
+		setCredit = new JTextField();
+		setCredit.setColumns(10);
+		setCredit.setBounds(152, 159, 76, 26);
+		studentPanel.add(setCredit);
 		
-		JComboBox searchComboBox = new JComboBox();
-		searchComboBox.setModel(new DefaultComboBoxModel(new String[] {"Tên", "MSSV", "Số Tín Chỉ"}));
-		searchComboBox.setBounds(146, 17, 117, 27);
-		panel_1.add(searchComboBox);
+		setSubject = new JTextField();
+		setSubject.setColumns(10);
+		setSubject.setBounds(515, 159, 76, 26);
+		studentPanel.add(setSubject);
 		
-		inputSearch = new JTextField();
-		inputSearch.setBounds(276, 17, 181, 26);
-		panel_1.add(inputSearch);
-		inputSearch.setColumns(10);
+		JLabel nameLabel = new JLabel("Họ và tên : ");
+		nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		nameLabel.setBounds(28, 26, 105, 26);
+		studentPanel.add(nameLabel);
+		//tạo các JLabel, những cái này ko dùng nhiều, nên có thể tạo local
+		JLabel majorLabel = new JLabel(" Chuyên ngành : ");
+		majorLabel.setBounds(12, 74, 130, 26);
+		studentPanel.add(majorLabel);
 		
-		JLabel lblNewLabel = new JLabel("Hiển Thị Theo :");
-		lblNewLabel.setBounds(485, 20, 95, 27);
-		panel_1.add(lblNewLabel);
+		JLabel studyProgramLabel = new JLabel("Hình thức học :");
+		studyProgramLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		studyProgramLabel.setBounds(22, 112, 111, 26);
+		studentPanel.add(studyProgramLabel);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Tất Cả Hình Thức", "SV Theo TC", "SV Theo CT Mẫu"}));
-		comboBox.setBounds(590, 16, 140, 31);
-		panel_1.add(comboBox);
+		JLabel idLabel = new JLabel("MSSV : ");
+		idLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		idLabel.setBounds(406, 26, 105, 26);
+		studentPanel.add(idLabel);
 		
-		totalTuitionShow = new JTextField();
-		totalTuitionShow.setBounds(548, 677, 147, 20);
-		contentPane.add(totalTuitionShow);
-		totalTuitionShow.setColumns(10);
+		creditLabel = new JLabel("      Số tín chỉ : ");
+		creditLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		creditLabel.setBounds(28, 158, 105, 26);
+		studentPanel.add(creditLabel);
 		
-		JLabel totalTuitionLabel = new JLabel("Tổng Học Phí (VNĐ)");
-		totalTuitionLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		totalTuitionLabel.setBounds(389, 667, 149, 36);
-		contentPane.add(totalTuitionLabel);
+		subjectLabel = new JLabel(" Số học phần : ");
+		subjectLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		subjectLabel.setBounds(406, 158, 105, 26);
+		studentPanel.add(subjectLabel);
+		//tạo các button và sự kiện liên quan
+		addButton = new JButton("Thêm");
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addButtonListener(this);
+			}
+		});
+		addButton.setBounds(41, 221, 137, 25);
+		studentPanel.add(addButton);
 		
-		JLabel totalSudentLabel = new JLabel("Số Lượng Sinh Viên :");
-		totalSudentLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		totalSudentLabel.setBounds(57, 675, 164, 20);
-		contentPane.add(totalSudentLabel);
+		deleteButton = new JButton("Xóa");
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		deleteButton.setBounds(378, 221, 137, 25);
+		studentPanel.add(deleteButton);
 		
-		totalStudentShow = new JTextField();
-		totalStudentShow.setBounds(245, 677, 88, 20);
-		contentPane.add(totalStudentShow);
-		totalStudentShow.setColumns(10);
+		editButton = new JButton("Sửa");
+		editButton.setBounds(208, 221, 137, 25);
+		studentPanel.add(editButton);
+		
+		findingButton = new JButton("Tìm");
+		findingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		findingButton.setBounds(548, 221, 137, 25);
+		studentPanel.add(findingButton);
+	}
+	//method tạo bảng danh sách sinh viên
+	private void setStudentTable()
+	{
+		//tạo ScrollPane chứa table, có thể co/kéo thanh công cụ tùy ý và tạo scroll cho table
+		scrollTable = new JScrollPane();
+		scrollTable.setBounds(12, 29, 711, 345);
+		tablePanel.add(scrollTable);
+		
+		table = new JTable() {
+			/**
+			 * @author kiennt
+			 * 
+			 * disable edit cell in table,set to read only
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public boolean editCellAt(int row,int column, java.util.EventObject e) {
+				return false;
+			}
+		};
+		model = new DefaultTableModel();
+		model.setColumnIdentifiers(column);
+		table.setModel(model);
+		
+		scrollTable.setViewportView(table);
+		//tạo sự kiện cho table
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				/*
+				 * Nhấn vào các hàng để lấy dữ liệu sinh viên 
+				 * */
+				int selectedRow = table.getSelectedRow();
+				setStudentCode.setText(model.getValueAt(selectedRow, 0).toString());
+				setName.setText(model.getValueAt(selectedRow, 1).toString());
+				setMajor.setText(model.getValueAt(selectedRow, 2).toString());
+				if(model.getValueAt(selectedRow, 3).toString().equals("Tín chỉ"))
+				{
+					creditSelected.setSelected(true);
+				}
+				else if(model.getValueAt(selectedRow, 3).toString().equals("Chương trình mẫu"))
+				{
+					subjectSelected.setSelected(true);
+				}
+				else {
+					buttonGroup.clearSelection();
+				}
+				setCredit.setText(model.getValueAt(selectedRow, 4).toString());
+				setSubject.setText(model.getValueAt(selectedRow, 5).toString());
+
+
+			}
+		});
 		
 	}
-	public JTable getTable_1() {
-		return showListSV;
+	public Student getStudentInfo() {
+		String studentCode = setStudentCode.getText();
+		String studentName = setName.getText();
+		String studentMajor = setMajor.getText();
+		int studyProgramID = this.studyProgramID;
+		int studentCredit = Integer.parseInt(setCredit.getText().trim());
+		int studentSubject = Integer.parseInt(setSubject.getText().trim());
+		Student student = new Student(studentCode, studentName, studentMajor, studyProgramID, studentCredit, studentSubject);
+		return student;
 	}
+	
+	public void showListStudent(List<Student> studentList)
+	{
+		int size = studentList.size();
+		/*
+		 * Khởi tạo lại model
+		 * 
+		 * */
+		model = new DefaultTableModel();
+		model.setColumnIdentifiers(column);
+		table.setModel(model);
+		Object [][] students = new Object[size][7];
+		for(int i=0;i<size;i++)
+		{
+			students[i][0]=studentList.get(i).getStudentCode();
+			students[i][1]=studentList.get(i).getName();
+			students[i][2]=studentList.get(i).getMajor();
+			if(studentList.get(i).getStudyProgramId()==1)
+			{
+				students[i][3]="Tín chỉ";
+			}
+			else if(studentList.get(i).getStudyProgramId()==2) {
+				students[i][3]="Chương trình mẫu";
+			}
+			else {
+				students[i][3]="Chọn đi";	
+			}
+			students[i][4]=studentList.get(i).getCreditCount();
+			students[i][5]=studentList.get(i).getSubjectCount();
+			model.addRow(students[i]);
+		}
+	}
+	
+	public void showMessage(String message)
+	{
+		JOptionPane.showMessageDialog(null, message);
+	}
+	
+	public String getDeleteOption()
+	{
+		String idSelect = JOptionPane.showInputDialog(frame, "Nhập MSSV muốn xóa: ","Xóa sinh viên",JOptionPane.DEFAULT_OPTION);
+		return idSelect;
+	}
+	
+	public String searchByName()
+	{	
+		String name = JOptionPane.showInputDialog(frame,"Nhập tên muốn tìm: ","Tìm kiếm bằng tên",JOptionPane.DEFAULT_OPTION);
+		return name;
+	}
+	public void clearAllContent()
+	{
+		setName.setText("");
+		setMajor.setText("");
+		setStudentCode.setText("");
+		buttonGroup.clearSelection();
+		setCredit.setEnabled(true);
+		setCredit.setText("");
+		setSubject.setEnabled(true);
+		setSubject.setText("");
+	}
+	// method các sự kiện của các phím chức năng
+	public void addButtonListener(ActionListener listener)
+	{
+		addButton.addActionListener(listener);
+	}
+	
+	
+	public void deleteButtonListener(ActionListener listener)
+	{
+		deleteButton.addActionListener(listener);
+	}
+	
+	public void editButtonListener(ActionListener listener)
+	{
+		editButton.addActionListener(listener);
+	}
+	
+	public void findingButtonListener(ActionListener listener)
+	{
+		findingButton.addActionListener(listener);
+	}
+	public void setFrameVisible()
+	{
+		frame.setVisible(true);
+	}
+	
+
 }

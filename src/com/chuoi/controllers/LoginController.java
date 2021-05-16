@@ -3,7 +3,8 @@ package com.chuoi.controllers;
 import com.chuoi.views.LoginView;
 import com.chuoi.services.AccountService;
 import com.chuoi.models.Account;
-
+import com.chuoi.views.StudentView;
+import com.chuoi.controllers.StudentController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,7 +34,10 @@ public class LoginController {
 			}
 			else
 			{
-				loginView.showMess("Naice");
+				StudentView studentView = new StudentView();
+				StudentController studentController = new StudentController(studentView);
+				studentController.showStudentAppView();
+				
 			}
 		}
 		
