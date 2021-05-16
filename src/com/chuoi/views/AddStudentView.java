@@ -20,7 +20,9 @@ public class AddStudentView extends JFrame {
 	private JTextField creditCountInput;
 	private JTextField subjectCountInput;
 
-	
+	public void ShowAddStudentView() {
+		
+	}
 	public AddStudentView() {
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
