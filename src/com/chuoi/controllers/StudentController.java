@@ -16,6 +16,7 @@ public class StudentController {
 		studentService = new StudentService();
 		
 		studentView.addButtonListener(new AddButtonListener());
+		studentView.editButtonListener(new EditButtonListener());
 		studentView.deleteButtonListener(new DeleteButtonListener());
 		studentView.findingButtonListener(new FindingButtonListener());
 	}
@@ -23,6 +24,7 @@ public class StudentController {
 	public void showStudentAppView()
 	{
 		studentView.setFrameVisible();
+		studentView.showListStudent(studentService.getStudents());
 	}
 	class AddButtonListener implements ActionListener
 	{
@@ -32,18 +34,38 @@ public class StudentController {
 				Student student = studentView.getStudentInfo();
 				if(studentService.addStudent(student))
 				{
-					studentView.showListStudent(studentService.getStudents());
 					studentView.clearAllContent();
-					studentView.showAddMessage("Naice");
+					studentView.showMessage("Naice");
 				}
-				
+				else {
+					studentView.showMessage("Trùng cmm rồi nhập cl");
+					studentView.showListStudent(studentService.getStudents());
+					
+				}
+				studentView.showListStudent(studentService.getStudents());
 			} catch (Exception e2) {
-				// TODO: handle exception
-				studentView.showAddMessage("Nhập như lồn");
+				// TODO: handle exception	
+				studentView.showMessage("Nhập như lồn");
 			}
 		}
 	}
 	
+	class EditButtonListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e) {
+			try {
+				Student student = studentView.getStudentInfo();
+				studentService.editStudent(student.getStudentCode(), student.getName(), student.getMajor(), student.getStudyProgramId(), student.getCreditCount(), student.getSubjectCount());
+				studentView.showListStudent(studentService.getStudents());
+				studentView.showMessage("Sửa thành công");
+				studentView.clearAllContent();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				studentView.showMessage("Chọn thông tin rồi sửa, ngu vừa thôi");
+			}
+		}
+		
+	}
 	class DeleteButtonListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
@@ -59,8 +81,8 @@ public class StudentController {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			Student student = studentView.getStudentInfo();
-			studentView.showListStudent(studentService.getStudentsWithFilter(student.getName(), student.getStudentCode(), student.getCreditCount(), student.getStudyProgramId()));	
+			String nameSearch = studentView.searchByName();
+			studentView.showListStudent(studentService.getStudentsWithFilter(nameSearch, "20194310", 0, 0));
 		}
 	}
 	
