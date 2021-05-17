@@ -79,7 +79,7 @@ public class StudentService {
 	// Nếu không filter creditCount hoặc studyProgramId thì truyền vào -1
 	public List<Student> getStudentsWithFilter(String name, String studentCode, int creditCount, int studyProgramId) {
 		List<Student> filteredStudents = students.stream().filter(_student -> _student.getName().toLowerCase()
-				.contains(name) && _student.getStudentCode().toLowerCase().contains(studentCode)
+				.contains(name.toLowerCase()) && _student.getStudentCode().toLowerCase().contains(studentCode)
 				&& (creditCount != Constant.DEFAULT_CREDIT_COUNT ? _student.getCreditCount() == creditCount : true)
 				&& (studyProgramId != Constant.DEFAULT_STUDY_PROGRAM_ID ? _student.getStudyProgramId() == studyProgramId
 						: true))
@@ -89,10 +89,6 @@ public class StudentService {
 		filteredStudents.sort((Student a, Student b) -> {
 			return a.getStudentCode().compareTo(b.getStudentCode());
 		});
-
-		for (int i = 0; i < students.size(); i++) {
-			System.out.println(students.get(i).getTotalTuition());
-		}
 
 		return filteredStudents;
 	}

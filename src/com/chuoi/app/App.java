@@ -1,4 +1,5 @@
 package com.chuoi.app;
+
 import com.chuoi.views.LoginView;
 import com.chuoi.controllers.LoginController;
 
