@@ -231,6 +231,7 @@ public class StudentView {
 		
 		scrollTable.setViewportView(table);
 		
+		// các chức năng trong table
 		JButton findingButton = new JButton("Tìm SV");
 		findingButton.setBounds(37, 17, 102, 23);
 		tablePanel.add(findingButton);
@@ -278,6 +279,7 @@ public class StudentView {
 		tuitionUnitLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tuitionUnitLabel.setBounds(642, 437, 49, 19);
 		tablePanel.add(tuitionUnitLabel);
+		
 		//tạo sự kiện cho table
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
