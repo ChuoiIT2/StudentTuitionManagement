@@ -25,14 +25,21 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.util.List;
+<<<<<<< HEAD
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+=======
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 
 public class StudentView {
 	//tạo các attribute liên quan
 	private JFrame frame;
 	private JPanel studentPanel,tablePanel;
 	private JTable table;
+<<<<<<< HEAD
+=======
+	private JScrollPane scrollTable;
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 	private JTextField setName;
 	private JTextField setMajor;
 	private JTextField setStudentCode;
@@ -44,10 +51,15 @@ public class StudentView {
 	private JButton addButton;
 	private JButton deleteButton;
 	private JButton editButton;
+<<<<<<< HEAD
+=======
+	private JButton findingButton;
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 	private ButtonGroup buttonGroup;
 	private DefaultTableModel model;
 	
 	private Object [] column = {"MSSV", "Họ và tên", "Chuyên ngành", "Hình thức học" , "Số TC", "Số HP", "Học phí"};
+<<<<<<< HEAD
 	
 	private int studyProgramID = Constant.DEFAULT_STUDY_PROGRAM_ID;
 	private JLabel lblNewLabel;
@@ -58,6 +70,11 @@ public class StudentView {
 	private JTextField textField_1;
 	private JLabel lblNewLabel_3;
 	
+=======
+	
+	private int studyProgramID = Constant.DEFAULT_STUDY_PROGRAM_ID;
+	
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 	public StudentView()
 	{
 		initialize();
@@ -72,13 +89,21 @@ public class StudentView {
 		
 		//tạo panel chứa table
 		tablePanel = new JPanel();
+<<<<<<< HEAD
 		tablePanel.setBounds(12, 227, 735, 480);
+=======
+		tablePanel.setBounds(12, 321, 735, 386);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		tablePanel.setBorder(new TitledBorder(null, "Danh sách sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		frame.getContentPane().add(tablePanel);
 		tablePanel.setLayout(null);
 		// panel chứa thông tin sinh viên
 		studentPanel = new JPanel();
+<<<<<<< HEAD
 		studentPanel.setBounds(12, 12, 735, 204);
+=======
+		studentPanel.setBounds(12, 12, 735, 297);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		studentPanel.setBorder(new TitledBorder(null, "Thông tin sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		frame.getContentPane().add(studentPanel);
 		studentPanel.setLayout(null);
@@ -93,18 +118,30 @@ public class StudentView {
 	private void setContentPanel()
 	{
 		setName = new JTextField();
+<<<<<<< HEAD
 		setName.setBounds(151, 26, 181, 26);
+=======
+		setName.setBounds(151, 26, 209, 26);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		studentPanel.add(setName);
 		setName.setColumns(10);
 		
 		setMajor = new JTextField();
 		setMajor.setColumns(10);
+<<<<<<< HEAD
 		setMajor.setBounds(151, 63, 181, 26);
+=======
+		setMajor.setBounds(151, 76, 209, 26);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		studentPanel.add(setMajor);
 		
 		setStudentCode = new JTextField();
 		setStudentCode.setColumns(10);
+<<<<<<< HEAD
 		setStudentCode.setBounds(512, 26, 130, 26);
+=======
+		setStudentCode.setBounds(514, 26, 130, 26);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		setStudentCode.setVisible(true);
 		studentPanel.add(setStudentCode);
 		
@@ -122,7 +159,11 @@ public class StudentView {
 				}
 			}
 		});
+<<<<<<< HEAD
 		creditSelected.setBounds(151, 96, 184, 31);
+=======
+		creditSelected.setBounds(148, 110, 184, 31);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		studentPanel.add(creditSelected);
 		
 		subjectSelected = new JRadioButton("Theo Chương Trình Mẫu");
@@ -140,7 +181,11 @@ public class StudentView {
 				}
 			}
 		});
+<<<<<<< HEAD
 		subjectSelected.setBounds(406, 96, 222, 31);
+=======
+		subjectSelected.setBounds(394, 110, 222, 31);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		studentPanel.add(subjectSelected);
 		
 		buttonGroup = new ButtonGroup();
@@ -149,11 +194,16 @@ public class StudentView {
 		
 		setCredit = new JTextField();
 		setCredit.setColumns(10);
+<<<<<<< HEAD
 		setCredit.setBounds(151, 134, 76, 26);
+=======
+		setCredit.setBounds(152, 159, 76, 26);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		studentPanel.add(setCredit);
 		
 		setSubject = new JTextField();
 		setSubject.setColumns(10);
+<<<<<<< HEAD
 		setSubject.setBounds(514, 134, 76, 26);
 		studentPanel.add(setSubject);
 		
@@ -165,26 +215,55 @@ public class StudentView {
 		JLabel majorLabel = new JLabel(" Chuyên ngành : ");
 		majorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		majorLabel.setBounds(11, 63, 130, 26);
+=======
+		setSubject.setBounds(515, 159, 76, 26);
+		studentPanel.add(setSubject);
+		
+		JLabel nameLabel = new JLabel("Họ và tên : ");
+		nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		nameLabel.setBounds(28, 26, 105, 26);
+		studentPanel.add(nameLabel);
+		//tạo các JLabel, những cái này ko dùng nhiều, nên có thể tạo local
+		JLabel majorLabel = new JLabel(" Chuyên ngành : ");
+		majorLabel.setBounds(12, 74, 130, 26);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		studentPanel.add(majorLabel);
 		
 		JLabel studyProgramLabel = new JLabel("Hình thức học :");
 		studyProgramLabel.setHorizontalAlignment(SwingConstants.LEFT);
+<<<<<<< HEAD
 		studyProgramLabel.setBounds(41, 100, 111, 26);
+=======
+		studyProgramLabel.setBounds(22, 112, 111, 26);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		studentPanel.add(studyProgramLabel);
 		
 		JLabel idLabel = new JLabel("MSSV : ");
 		idLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+<<<<<<< HEAD
 		idLabel.setBounds(359, 26, 105, 26);
 		studentPanel.add(idLabel);
 		
 		creditLabel = new JLabel("      Số tín chỉ : ");
 		creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		creditLabel.setBounds(36, 133, 105, 26);
+=======
+		idLabel.setBounds(406, 26, 105, 26);
+		studentPanel.add(idLabel);
+		
+		creditLabel = new JLabel("      Số tín chỉ : ");
+		creditLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		creditLabel.setBounds(28, 158, 105, 26);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		studentPanel.add(creditLabel);
 		
 		subjectLabel = new JLabel(" Số học phần : ");
 		subjectLabel.setHorizontalAlignment(SwingConstants.LEFT);
+<<<<<<< HEAD
 		subjectLabel.setBounds(422, 134, 105, 26);
+=======
+		subjectLabel.setBounds(406, 158, 105, 26);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		studentPanel.add(subjectLabel);
 		//tạo các button và sự kiện liên quan
 		addButton = new JButton("Thêm");
@@ -193,6 +272,7 @@ public class StudentView {
 				addButtonListener(this);
 			}
 		});
+<<<<<<< HEAD
 		addButton.setBounds(90, 171, 137, 25);
 		studentPanel.add(addButton);
 		
@@ -278,6 +358,56 @@ public class StudentView {
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setBounds(643, 452, 49, 14);
 		tablePanel.add(lblNewLabel_3);
+=======
+		addButton.setBounds(41, 221, 137, 25);
+		studentPanel.add(addButton);
+		
+		deleteButton = new JButton("Xóa");
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		deleteButton.setBounds(378, 221, 137, 25);
+		studentPanel.add(deleteButton);
+		
+		editButton = new JButton("Sửa");
+		editButton.setBounds(208, 221, 137, 25);
+		studentPanel.add(editButton);
+		
+		findingButton = new JButton("Tìm");
+		findingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		findingButton.setBounds(548, 221, 137, 25);
+		studentPanel.add(findingButton);
+	}
+	//method tạo bảng danh sách sinh viên
+	private void setStudentTable()
+	{
+		//tạo ScrollPane chứa table, có thể co/kéo thanh công cụ tùy ý và tạo scroll cho table
+		scrollTable = new JScrollPane();
+		scrollTable.setBounds(12, 29, 711, 345);
+		tablePanel.add(scrollTable);
+		
+		table = new JTable() {
+			/**
+			 * @author kiennt
+			 * 
+			 * disable edit cell in table,set to read only
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public boolean editCellAt(int row,int column, java.util.EventObject e) {
+				return false;
+			}
+		};
+		model = new DefaultTableModel();
+		model.setColumnIdentifiers(column);
+		table.setModel(model);
+		
+		scrollTable.setViewportView(table);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 		//tạo sự kiện cho table
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -396,12 +526,22 @@ public class StudentView {
 	
 	public void findingButtonListener(ActionListener listener)
 	{
+<<<<<<< HEAD
 		//findingButton.addActionListener(listener);
+=======
+		findingButton.addActionListener(listener);
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7
 	}
 	public void setFrameVisible()
 	{
 		frame.setVisible(true);
 	}
+<<<<<<< HEAD
 }
 
 
+=======
+	
+
+}
+>>>>>>> f529b972b16cbb09d1019ccaa6c3454bb1699ba7

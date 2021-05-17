@@ -11,25 +11,21 @@ import java.awt.event.ActionListener;
 public class LoginController {
 	private AccountService accountService;
 	private LoginView loginView;
-	
-	public LoginController(LoginView loginView)
-	{
-		this.loginView=loginView;
-		this.accountService=new AccountService();
+
+	public LoginController(LoginView loginView) {
+		this.loginView = loginView;
+		this.accountService = new AccountService();
 		loginView.addLoginListener(new LoginListener());
 	}
-	
-	public void showLoginView()
-	{
+
+	public void showLoginView() {
 		loginView.setFrameVisible();
 	}
-	
-	class LoginListener implements ActionListener
-	{
+
+	class LoginListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Account account = loginView.getUser();
-			if(!accountService.checkAdminAccount(account.getUsername(), account.getPassword()))
-			{
+			if (!accountService.checkAdminAccount(account.getUsername(), account.getPassword())) {
 				loginView.showMess("Wrong Username or Password!Try again");
 			}
 			else
@@ -40,6 +36,6 @@ public class LoginController {
 				
 			}
 		}
-		
+
 	}
 }
