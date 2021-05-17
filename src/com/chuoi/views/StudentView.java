@@ -25,13 +25,14 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class StudentView {
 	//tạo các attribute liên quan
 	private JFrame frame;
 	private JPanel studentPanel,tablePanel;
 	private JTable table;
-	private JScrollPane scrollTable;
 	private JTextField setName;
 	private JTextField setMajor;
 	private JTextField setStudentCode;
@@ -43,13 +44,19 @@ public class StudentView {
 	private JButton addButton;
 	private JButton deleteButton;
 	private JButton editButton;
-	private JButton findingButton;
 	private ButtonGroup buttonGroup;
 	private DefaultTableModel model;
 	
 	private Object [] column = {"MSSV", "Họ và tên", "Chuyên ngành", "Hình thức học" , "Số TC", "Số HP", "Học phí"};
 	
 	private int studyProgramID = Constant.DEFAULT_STUDY_PROGRAM_ID;
+	private JLabel lblNewLabel;
+	private JComboBox comboBox_1;
+	private JLabel lblNewLabel_1;
+	private JTextField textField;
+	private JLabel lblNewLabel_2;
+	private JTextField textField_1;
+	private JLabel lblNewLabel_3;
 	
 	public StudentView()
 	{
@@ -65,13 +72,13 @@ public class StudentView {
 		
 		//tạo panel chứa table
 		tablePanel = new JPanel();
-		tablePanel.setBounds(12, 321, 735, 386);
+		tablePanel.setBounds(12, 227, 735, 480);
 		tablePanel.setBorder(new TitledBorder(null, "Danh sách sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		frame.getContentPane().add(tablePanel);
 		tablePanel.setLayout(null);
 		// panel chứa thông tin sinh viên
 		studentPanel = new JPanel();
-		studentPanel.setBounds(12, 12, 735, 297);
+		studentPanel.setBounds(12, 12, 735, 204);
 		studentPanel.setBorder(new TitledBorder(null, "Thông tin sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		frame.getContentPane().add(studentPanel);
 		studentPanel.setLayout(null);
@@ -86,18 +93,18 @@ public class StudentView {
 	private void setContentPanel()
 	{
 		setName = new JTextField();
-		setName.setBounds(151, 26, 209, 26);
+		setName.setBounds(151, 26, 181, 26);
 		studentPanel.add(setName);
 		setName.setColumns(10);
 		
 		setMajor = new JTextField();
 		setMajor.setColumns(10);
-		setMajor.setBounds(151, 76, 209, 26);
+		setMajor.setBounds(151, 63, 181, 26);
 		studentPanel.add(setMajor);
 		
 		setStudentCode = new JTextField();
 		setStudentCode.setColumns(10);
-		setStudentCode.setBounds(514, 26, 130, 26);
+		setStudentCode.setBounds(512, 26, 130, 26);
 		setStudentCode.setVisible(true);
 		studentPanel.add(setStudentCode);
 		
@@ -115,7 +122,7 @@ public class StudentView {
 				}
 			}
 		});
-		creditSelected.setBounds(148, 110, 184, 31);
+		creditSelected.setBounds(151, 96, 184, 31);
 		studentPanel.add(creditSelected);
 		
 		subjectSelected = new JRadioButton("Theo Chương Trình Mẫu");
@@ -133,7 +140,7 @@ public class StudentView {
 				}
 			}
 		});
-		subjectSelected.setBounds(394, 110, 222, 31);
+		subjectSelected.setBounds(406, 96, 222, 31);
 		studentPanel.add(subjectSelected);
 		
 		buttonGroup = new ButtonGroup();
@@ -142,41 +149,42 @@ public class StudentView {
 		
 		setCredit = new JTextField();
 		setCredit.setColumns(10);
-		setCredit.setBounds(152, 159, 76, 26);
+		setCredit.setBounds(151, 134, 76, 26);
 		studentPanel.add(setCredit);
 		
 		setSubject = new JTextField();
 		setSubject.setColumns(10);
-		setSubject.setBounds(515, 159, 76, 26);
+		setSubject.setBounds(514, 134, 76, 26);
 		studentPanel.add(setSubject);
 		
 		JLabel nameLabel = new JLabel("Họ và tên : ");
-		nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		nameLabel.setBounds(28, 26, 105, 26);
+		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		nameLabel.setBounds(36, 26, 105, 26);
 		studentPanel.add(nameLabel);
 		//tạo các JLabel, những cái này ko dùng nhiều, nên có thể tạo local
 		JLabel majorLabel = new JLabel(" Chuyên ngành : ");
-		majorLabel.setBounds(12, 74, 130, 26);
+		majorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		majorLabel.setBounds(11, 63, 130, 26);
 		studentPanel.add(majorLabel);
 		
 		JLabel studyProgramLabel = new JLabel("Hình thức học :");
 		studyProgramLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		studyProgramLabel.setBounds(22, 112, 111, 26);
+		studyProgramLabel.setBounds(41, 100, 111, 26);
 		studentPanel.add(studyProgramLabel);
 		
 		JLabel idLabel = new JLabel("MSSV : ");
 		idLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		idLabel.setBounds(406, 26, 105, 26);
+		idLabel.setBounds(359, 26, 105, 26);
 		studentPanel.add(idLabel);
 		
 		creditLabel = new JLabel("      Số tín chỉ : ");
-		creditLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		creditLabel.setBounds(28, 158, 105, 26);
+		creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		creditLabel.setBounds(36, 133, 105, 26);
 		studentPanel.add(creditLabel);
 		
 		subjectLabel = new JLabel(" Số học phần : ");
 		subjectLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		subjectLabel.setBounds(406, 158, 105, 26);
+		subjectLabel.setBounds(422, 134, 105, 26);
 		studentPanel.add(subjectLabel);
 		//tạo các button và sự kiện liên quan
 		addButton = new JButton("Thêm");
@@ -185,7 +193,7 @@ public class StudentView {
 				addButtonListener(this);
 			}
 		});
-		addButton.setBounds(41, 221, 137, 25);
+		addButton.setBounds(90, 171, 137, 25);
 		studentPanel.add(addButton);
 		
 		deleteButton = new JButton("Xóa");
@@ -193,27 +201,19 @@ public class StudentView {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		deleteButton.setBounds(378, 221, 137, 25);
+		deleteButton.setBounds(512, 171, 137, 25);
 		studentPanel.add(deleteButton);
 		
 		editButton = new JButton("Sửa");
-		editButton.setBounds(208, 221, 137, 25);
+		editButton.setBounds(308, 171, 137, 25);
 		studentPanel.add(editButton);
-		
-		findingButton = new JButton("Tìm");
-		findingButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		findingButton.setBounds(548, 221, 137, 25);
-		studentPanel.add(findingButton);
 	}
 	//method tạo bảng danh sách sinh viên
 	private void setStudentTable()
 	{
 		//tạo ScrollPane chứa table, có thể co/kéo thanh công cụ tùy ý và tạo scroll cho table
-		scrollTable = new JScrollPane();
-		scrollTable.setBounds(12, 29, 711, 345);
+		JScrollPane scrollTable = new JScrollPane();
+		scrollTable.setBounds(12, 59, 711, 380);
 		tablePanel.add(scrollTable);
 		
 		table = new JTable() {
@@ -233,6 +233,51 @@ public class StudentView {
 		table.setModel(model);
 		
 		scrollTable.setViewportView(table);
+		
+		JButton btnNewButton = new JButton("Tìm kiếm theo");
+		btnNewButton.setBounds(23, 25, 103, 23);
+		tablePanel.add(btnNewButton);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Tên", "MSSV", "Số tín chỉ", "Số học phần"}));
+		comboBox.setBounds(146, 25, 86, 22);
+		tablePanel.add(comboBox);
+		
+		lblNewLabel = new JLabel("Hiển thị theo :");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(439, 29, 121, 14);
+		tablePanel.add(lblNewLabel);
+		
+		comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Tất cả", "Theo tín chỉ", "Theo CT mẫu"}));
+		comboBox_1.setBounds(570, 25, 122, 22);
+		tablePanel.add(comboBox_1);
+		// thống kê
+		lblNewLabel_1 = new JLabel("Tổng Học Phí :");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(406, 450, 121, 19);
+		tablePanel.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		textField.setBounds(512, 449, 134, 20);
+		tablePanel.add(textField);
+		textField.setColumns(10);
+		
+		lblNewLabel_2 = new JLabel("Số lượng :");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(63, 450, 103, 19);
+		tablePanel.add(lblNewLabel_2);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(176, 449, 96, 20);
+		tablePanel.add(textField_1);
+		textField_1.setColumns(10);
+		
+		lblNewLabel_3 = new JLabel("(VNĐ)");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBounds(643, 452, 49, 14);
+		tablePanel.add(lblNewLabel_3);
 		//tạo sự kiện cho table
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -351,12 +396,12 @@ public class StudentView {
 	
 	public void findingButtonListener(ActionListener listener)
 	{
-		findingButton.addActionListener(listener);
+		//findingButton.addActionListener(listener);
 	}
 	public void setFrameVisible()
 	{
 		frame.setVisible(true);
 	}
-	
-
 }
+
+
