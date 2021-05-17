@@ -7,6 +7,7 @@ public class Student {
 	private int studyProgramId;
 	private int creditCount;
 	private int subjectCount;
+	private double totalTuition;
 
 	public Student(String studentCode, String name, String major, int studyProgramId, int creditCount,
 			int subjectCount) {
@@ -65,6 +66,14 @@ public class Student {
 
 	public void setSubjectCount(int subjectCount) {
 		this.subjectCount = subjectCount;
+	}
+
+	public double getTotalTuition() {
+		return totalTuition;
+	}
+
+	public void setTotalTuition(double totalTuition) {
+		this.totalTuition = totalTuition;
 	}
 
 }

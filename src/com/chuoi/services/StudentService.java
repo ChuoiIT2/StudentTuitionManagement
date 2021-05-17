@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import com.chuoi.models.Student;
 import com.chuoi.utils.DatabaseUtil;
 import com.chuoi.utils.FileUtil;
@@ -31,15 +30,44 @@ public class StudentService {
 		this.students = students;
 	}
 
+	private double calculateTuitionOfStudent(Student student) {
+		// Nếu học theo chương trình tín chỉ
+		// Học phí = số tín chỉ x đơn vị học phí
+		if (student.getStudyProgramId() == Constant.STUDY_PROGRAM_CREDIT_ID) {
+			return student.getCreditCount() * Constant.TUITION_UNIT;
+		}
+
+		// Nếu học theo chương trình mẫu
+		// Học phí = số học phần x đơn vị học phí x hệ số học phí + phí quản lý lý
+		if (student.getStudyProgramId() == Constant.STUDY_PROGRAM_MODEL_ID) {
+			return student.getSubjectCount() * Constant.TUITION_UNIT * Constant.TUITION_COEFFICIENT
+					+ Constant.MANAGEMENT_FEE;
+		}
+
+		// Nếu chương trình học bị sai
+		return -1;
+	}
+
 	// Return true if add student successfully
 	public boolean addStudent(Student newStudent) {
 		readFromDatabase();
 
+		// Kiểm tra mã số SV đã được sử dụng chưa
 		for (int i = 0; i < students.size(); i++) {
 			if (students.get(i).getStudentCode().equals(newStudent.getStudentCode())) {
 				return false;
 			}
 		}
+
+		// Kiểm tra chương trình học có hợp lệ không
+		if (newStudent.getStudyProgramId() != Constant.STUDY_PROGRAM_CREDIT_ID
+				&& newStudent.getStudyProgramId() != Constant.STUDY_PROGRAM_MODEL_ID) {
+			return false;
+		}
+
+		// Tính học phí trước khi thêm vào database
+		newStudent.setTotalTuition(calculateTuitionOfStudent(newStudent));
+
 		this.students.add(newStudent);
 
 		writeToDatabase();
@@ -56,9 +84,15 @@ public class StudentService {
 				&& (studyProgramId != Constant.DEFAULT_STUDY_PROGRAM_ID ? _student.getStudyProgramId() == studyProgramId
 						: true))
 				.collect(Collectors.toList());
+
+		// Sắp xếp theo studentCode
 		filteredStudents.sort((Student a, Student b) -> {
-			return -a.getCreditCount() + b.getCreditCount();
+			return a.getStudentCode().compareTo(b.getStudentCode());
 		});
+
+		for (int i = 0; i < students.size(); i++) {
+			System.out.println(students.get(i).getTotalTuition());
+		}
 
 		return filteredStudents;
 	}
