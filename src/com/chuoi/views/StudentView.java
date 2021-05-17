@@ -52,8 +52,6 @@ public class StudentView {
 	
 	private int studyProgramID = Constant.DEFAULT_STUDY_PROGRAM_ID;
 	private JTextField setFinding;
-	private JTextField setCountNumber;
-	private JTextField setTotalTuition;
 	
 	public StudentView()
 	{
@@ -255,30 +253,28 @@ public class StudentView {
 		displayComboBox.setBounds(560, 18, 143, 22);
 		tablePanel.add(displayComboBox);
 		
-		JLabel countNumberLabel = new JLabel("Số lượng SV :");
-		countNumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		countNumberLabel.setBounds(76, 433, 102, 27);
-		tablePanel.add(countNumberLabel);
-		
-		setCountNumber = new JTextField();
-		setCountNumber.setBounds(194, 438, 79, 20);
-		tablePanel.add(setCountNumber);
-		setCountNumber.setColumns(10);
+		JLabel countStudentNumberLabel = new JLabel("Số lượng SV :");
+		countStudentNumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		countStudentNumberLabel.setBounds(76, 433, 102, 27);
+		tablePanel.add(countStudentNumberLabel);
 		
 		JLabel totalTuitionLabel = new JLabel("Tổng Học Phí :");
 		totalTuitionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		totalTuitionLabel.setBounds(376, 433, 110, 27);
 		tablePanel.add(totalTuitionLabel);
 		
-		setTotalTuition = new JTextField();
-		setTotalTuition.setBounds(496, 438, 136, 20);
-		tablePanel.add(setTotalTuition);
-		setTotalTuition.setColumns(10);
-		
 		JLabel tuitionUnitLabel = new JLabel("(VNĐ)");
 		tuitionUnitLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tuitionUnitLabel.setBounds(642, 437, 49, 19);
 		tablePanel.add(tuitionUnitLabel);
+		
+		JLabel showStudentNumberLabel = new JLabel("");
+		showStudentNumberLabel.setBounds(177, 436, 75, 24);
+		tablePanel.add(showStudentNumberLabel);
+		
+		JLabel showTotalTuitionLabel = new JLabel("");
+		showTotalTuitionLabel.setBounds(496, 438, 136, 22);
+		tablePanel.add(showTotalTuitionLabel);
 		
 		//tạo sự kiện cho table
 		table.addMouseListener(new MouseAdapter() {
