@@ -27,13 +27,11 @@ public class LoginController {
 			Account account = loginView.getUser();
 			if (!accountService.checkAdminAccount(account.getUsername(), account.getPassword())) {
 				loginView.showMess("Wrong Username or Password!Try again");
-			}
-			else
-			{
+			} else {
 				StudentView studentView = new StudentView();
 				StudentController studentController = new StudentController(studentView);
 				studentController.showStudentAppView();
-				
+
 			}
 		}
 
