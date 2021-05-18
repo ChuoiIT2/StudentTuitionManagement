@@ -396,7 +396,17 @@ public class StudentView {
 	public void findingButtonListener(ActionListener listener) {
 		findingButton.addActionListener(listener);
 	}
-
+	public void settingTotal()
+	{
+		int rows = table.getRowCount();
+		setCountNumber.setText(String.valueOf(rows));
+	}
+	
+	public void settingTotal(double total)
+	{
+		int totalTuition = (int)total;
+		setTotalTuition.setText(String.valueOf(totalTuition));
+	}
 	public void setFrameVisible() {
 		frame.setVisible(true);
 	}

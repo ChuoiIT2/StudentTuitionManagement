@@ -1,19 +1,22 @@
 package com.chuoi.views;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JCheckBox;
-import javax.swing.ImageIcon;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
 import com.chuoi.models.Account;
 
 public class LoginView {
@@ -42,6 +45,7 @@ public class LoginView {
 		frame = new JFrame("Đăng nhập");
 		frame.setBounds(100, 100, 600, 400);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 		
 		setContent();
 		setLogoIcon();
@@ -51,10 +55,21 @@ public class LoginView {
 	{
 		username = new JTextField("Username");
 		username.setBounds(211, 124, 219, 26);
+		username.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				username.setText("");
+			}
+		});
 		frame.getContentPane().add(username);
 		
 		password = new JPasswordField("Yourpassword");
 		password.setBounds(211, 189, 219, 26);
+		password.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt)
+			{
+				password.setText("");
+			}
+		});
 		frame.getContentPane().add(password);
 		
 		buttonLogin = new JButton("Login");
@@ -72,9 +87,9 @@ public class LoginView {
 		frame.getContentPane().add(checkbox);
 	}
 	
-	public void setFrameVisible()
+	public void setFrameVisible(boolean setFrame)
 	{
-		frame.setVisible(true);
+		frame.setVisible(setFrame);
 	}
 	private void setLogoIcon()
 	{

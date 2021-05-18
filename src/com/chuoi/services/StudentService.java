@@ -16,7 +16,7 @@ import com.chuoi.configs.Constant;
 public class StudentService {
 	private String databaseUrl;
 	private List<Student> students;
-
+	private List<Student> filteredStudents;
 	public StudentService() {
 		this.databaseUrl = DatabaseUtil.getDatabaseUrl("students");
 		this.readFromDatabase();
@@ -29,7 +29,14 @@ public class StudentService {
 	public void setStudents(List<Student> students) {
 		this.students = students;
 	}
-
+	
+	public List<Student> getFilteredStudents(){
+		return this.filteredStudents;
+	}
+	
+	public void setFilteredStudents(List<Student> filteredStudents) {
+		this.filteredStudents=filteredStudents;
+	}
 	private double calculateTuitionOfStudent(Student student) {
 		// Nếu học theo chương trình tín chỉ
 		// Học phí = số tín chỉ x đơn vị học phí
@@ -89,7 +96,7 @@ public class StudentService {
 		filteredStudents.sort((Student a, Student b) -> {
 			return a.getStudentCode().compareTo(b.getStudentCode());
 		});
-
+		setFilteredStudents(filteredStudents);
 		return filteredStudents;
 	}
 
@@ -118,7 +125,8 @@ public class StudentService {
 
 		writeToDatabase();
 	}
-
+	
+	
 	private void writeToDatabase() {
 		Gson gson = new Gson();
 		FileUtil.writeFile(databaseUrl, gson.toJson(students));
