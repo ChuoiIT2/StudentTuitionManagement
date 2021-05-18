@@ -114,8 +114,13 @@ public class StudentController {
 			}
 			else
 			{
-				studentView.showListStudent(studentService.getStudentsWithFilter("", "",
-						Integer.parseInt(inputSearching), listOption));
+				try {
+					studentView.showListStudent(studentService.getStudentsWithFilter("", "",
+							Integer.parseInt(inputSearching), listOption));
+				} catch (Exception e2) {
+					// TODO: handle exception
+					studentView.showMessage("Hãy nhập số!");
+				}
 			}
 			studentView.settingTotal();
 			studentView.settingTotal(calTotalTuition(studentService.getFilteredStudents()));
