@@ -333,7 +333,7 @@ public class StudentView {
 			}
 			students[i][4] = studentList.get(i).getCreditCount();
 			students[i][5] = studentList.get(i).getSubjectCount();
-			students[i][6] = studentList.get(i).getTotalTuition();
+			students[i][6] = (int)studentList.get(i).getTotalTuition();
 			model.addRow(students[i]);
 		}
 	}
