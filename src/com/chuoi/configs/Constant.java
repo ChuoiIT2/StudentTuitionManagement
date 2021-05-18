@@ -9,4 +9,5 @@ public class Constant {
 	public final static double TUITION_UNIT = 250000;
 	public final static double TUITION_COEFFICIENT = 2.5;
 	public final static double MANAGEMENT_FEE = 1000000;
+	public final static boolean DEFAULT_FRAME_SHOW=true;
 }

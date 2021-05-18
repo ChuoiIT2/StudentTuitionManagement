@@ -3,6 +3,7 @@ package com.chuoi.controllers;
 import com.chuoi.views.LoginView;
 import com.chuoi.views.StudentView;
 import com.chuoi.services.AccountService;
+import com.chuoi.configs.Constant;
 import com.chuoi.models.Account;
 
 import java.awt.event.ActionEvent;
@@ -29,7 +30,7 @@ public class LoginController {
 				loginView.showMess("Wrong Username or Password!Try again");
 			} else {
 				loginView.showMess("");
-				showLoginView(false);
+				showLoginView(!Constant.DEFAULT_FRAME_SHOW);
 				StudentView studentView = new StudentView();
 				StudentController studentController = new StudentController(studentView);
 				studentController.showStudentAppView();
