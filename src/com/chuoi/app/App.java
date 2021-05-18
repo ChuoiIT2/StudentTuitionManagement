@@ -1,14 +1,13 @@
 package com.chuoi.app;
 
-import com.chuoi.services.StudentService;
-import com.chuoi.models.*;
-
+import com.chuoi.views.LoginView;
+import com.chuoi.controllers.LoginController;
+import com.chuoi.configs.Constant;
 public class App {
 
 	public static void main(String[] args) {
-		StudentService ss = new StudentService();
-
-		ss.getStudentsWithFilter("", "", -1, -1).forEach(student -> System.out.println(student.getName()));
-		;
+		LoginView loginView = new LoginView();
+		LoginController loginController = new LoginController(loginView);
+		loginController.showLoginView(Constant.DEFAULT_FRAME_SHOW);
 	}
 }
