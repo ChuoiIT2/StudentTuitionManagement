@@ -26,6 +26,11 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 import java.util.List;
+import javax.swing.UIManager;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
+import java.awt.SystemColor;
+import javax.swing.border.EtchedBorder;
 
 public class StudentView {
 	// tạo các attribute liên quan
@@ -72,14 +77,14 @@ public class StudentView {
 		tablePanel = new JPanel();
 		tablePanel.setBounds(12, 236, 735, 471);
 		tablePanel.setBorder(
-				new TitledBorder(null, "Danh sách sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Danh sách sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.textHighlight));
 		frame.getContentPane().add(tablePanel);
 		tablePanel.setLayout(null);
 		// panel chứa thông tin sinh viên
 		studentPanel = new JPanel();
 		studentPanel.setBounds(12, 12, 735, 213);
 		studentPanel.setBorder(
-				new TitledBorder(null, "Thông tin sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Thông tin sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.textHighlight));
 		frame.getContentPane().add(studentPanel);
 		studentPanel.setLayout(null);
 
@@ -93,18 +98,21 @@ public class StudentView {
 	// set label and other component
 	private void setContentPanel() {
 		setName = new JTextField();
+		setName.setBorder(UIManager.getBorder("ToolTip.border"));
 		setName.setBounds(151, 26, 209, 26);
 		studentPanel.add(setName);
 		setName.setColumns(10);
 
 		setMajor = new JTextField();
+		setMajor.setBorder(UIManager.getBorder("ToolTip.border"));
 		setMajor.setColumns(10);
 		setMajor.setBounds(151, 63, 209, 26);
 		studentPanel.add(setMajor);
 
 		setStudentCode = new JTextField();
+		setStudentCode.setBorder(UIManager.getBorder("ToolTip.border"));
 		setStudentCode.setColumns(10);
-		setStudentCode.setBounds(514, 26, 130, 26);
+		setStudentCode.setBounds(504, 26, 111, 26);
 		setStudentCode.setVisible(true);
 		studentPanel.add(setStudentCode);
 
@@ -138,7 +146,7 @@ public class StudentView {
 				}
 			}
 		});
-		subjectSelected.setBounds(393, 96, 222, 31);
+		subjectSelected.setBounds(383, 96, 222, 31);
 		studentPanel.add(subjectSelected);
 
 		buttonGroup = new ButtonGroup();
@@ -146,40 +154,42 @@ public class StudentView {
 		buttonGroup.add(subjectSelected);
 
 		setCredit = new JTextField();
+		setCredit.setBorder(UIManager.getBorder("ToolTip.border"));
 		setCredit.setEnabled(false);
 		setCredit.setColumns(10);
 		setCredit.setBounds(151, 137, 76, 26);
 		studentPanel.add(setCredit);
 
 		setSubject = new JTextField();
+		setSubject.setBorder(UIManager.getBorder("ToolTip.border"));
 		setSubject.setEnabled(false);
 		setSubject.setColumns(10);
-		setSubject.setBounds(517, 134, 76, 26);
+		setSubject.setBounds(504, 134, 76, 26);
 		studentPanel.add(setSubject);
 
 		JLabel nameLabel = new JLabel("Họ và tên : ");
 		nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		nameLabel.setBounds(36, 26, 92, 26);
+		nameLabel.setBounds(38, 26, 92, 26);
 		studentPanel.add(nameLabel);
 		// tạo các JLabel, những cái này ko dùng nhiều, nên có thể tạo local
 		JLabel majorLabel = new JLabel(" Chuyên ngành : ");
 		majorLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		majorLabel.setBounds(36, 63, 92, 26);
+		majorLabel.setBounds(35, 63, 105, 26);
 		studentPanel.add(majorLabel);
 
 		JLabel studyProgramLabel = new JLabel("Hình thức học :");
 		studyProgramLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		studyProgramLabel.setBounds(36, 99, 83, 26);
+		studyProgramLabel.setBounds(38, 99, 92, 26);
 		studentPanel.add(studyProgramLabel);
 
 		JLabel idLabel = new JLabel("MSSV : ");
 		idLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		idLabel.setBounds(403, 26, 63, 26);
+		idLabel.setBounds(445, 26, 63, 26);
 		studentPanel.add(idLabel);
 
 		creditLabel = new JLabel("      Số tín chỉ : ");
 		creditLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		creditLabel.setBounds(21, 137, 105, 26);
+		creditLabel.setBounds(19, 134, 105, 26);
 		studentPanel.add(creditLabel);
 
 		subjectLabel = new JLabel(" Số học phần : ");
@@ -188,14 +198,17 @@ public class StudentView {
 		studentPanel.add(subjectLabel);
 		// tạo các button và sự kiện liên quan
 		addButton = new JButton("Thêm");
+		addButton.setBorder(new MatteBorder(1, 1, 1, 1, (Color) SystemColor.activeCaption));
 		addButton.setBounds(94, 174, 137, 25);
 		studentPanel.add(addButton);
 
 		deleteButton = new JButton("Xóa");
-		deleteButton.setBounds(514, 171, 137, 25);
+		deleteButton.setBorder(new MatteBorder(1, 1, 1, 1, (Color) SystemColor.activeCaption));
+		deleteButton.setBounds(504, 174, 137, 25);
 		studentPanel.add(deleteButton);
 
 		editButton = new JButton("Sửa");
+		editButton.setBorder(new MatteBorder(1, 1, 1, 1, (Color) SystemColor.activeCaption));
 		editButton.setBounds(298, 171, 137, 25);
 		studentPanel.add(editButton);
 	}
@@ -228,6 +241,7 @@ public class StudentView {
 
 		// các chức năng trong table
 		findingButton = new JButton("Tìm SV");
+		findingButton.setBorder(new MatteBorder(1, 1, 1, 1, (Color) SystemColor.activeCaption));
 		findingButton.setBounds(37, 17, 102, 23);
 		tablePanel.add(findingButton);
 
@@ -237,6 +251,7 @@ public class StudentView {
 		tablePanel.add(findingComboBox);
 
 		setFinding = new JTextField();
+		setFinding.setBorder(UIManager.getBorder("ToolTip.border"));
 		setFinding.setBounds(289, 18, 136, 20);
 		tablePanel.add(setFinding);
 		setFinding.setColumns(10);
@@ -333,7 +348,7 @@ public class StudentView {
 			}
 			students[i][4] = studentList.get(i).getCreditCount();
 			students[i][5] = studentList.get(i).getSubjectCount();
-			students[i][6] = studentList.get(i).getTotalTuition();
+			students[i][6] = (int)studentList.get(i).getTotalTuition();
 			model.addRow(students[i]);
 		}
 	}
@@ -396,7 +411,17 @@ public class StudentView {
 	public void findingButtonListener(ActionListener listener) {
 		findingButton.addActionListener(listener);
 	}
-
+	public void settingTotal()
+	{
+		int rows = table.getRowCount();
+		setCountNumber.setText(String.valueOf(rows));
+	}
+	
+	public void settingTotal(double total)
+	{
+		int totalTuition = (int)total;
+		setTotalTuition.setText(String.valueOf(totalTuition));
+	}
 	public void setFrameVisible() {
 		frame.setVisible(true);
 	}

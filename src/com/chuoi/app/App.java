@@ -2,13 +2,12 @@ package com.chuoi.app;
 
 import com.chuoi.views.LoginView;
 import com.chuoi.controllers.LoginController;
-
+import com.chuoi.configs.Constant;
 public class App {
 
 	public static void main(String[] args) {
 		LoginView loginView = new LoginView();
 		LoginController loginController = new LoginController(loginView);
-
-		loginController.showLoginView();
+		loginController.showLoginView(Constant.DEFAULT_FRAME_SHOW);
 	}
 }

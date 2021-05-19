@@ -2,6 +2,7 @@ package com.chuoi.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import com.chuoi.services.StudentService;
 import com.chuoi.views.StudentView;
@@ -25,6 +26,8 @@ public class StudentController {
 	public void showStudentAppView() {
 		studentView.setFrameVisible();
 		studentView.showListStudent(studentService.getStudents());
+		studentView.settingTotal();
+		studentView.settingTotal(calTotalTuition(studentService.getStudents()));
 	}
 
 	class AddButtonListener implements ActionListener {
@@ -41,6 +44,8 @@ public class StudentController {
 
 				}
 				studentView.showListStudent(studentService.getStudents());
+				studentView.settingTotal();
+				studentView.settingTotal(calTotalTuition(studentService.getStudents()));
 			} catch (Exception e2) {
 				// TODO: handle exception
 				studentView.showMessage("Hãy nhập đầy đủ thông tin");
@@ -55,6 +60,8 @@ public class StudentController {
 				studentService.editStudent(student.getStudentCode(), student.getName(), student.getMajor(),
 						student.getStudyProgramId(), student.getCreditCount(), student.getSubjectCount());
 				studentView.showListStudent(studentService.getStudents());
+				studentView.settingTotal();
+				studentView.settingTotal(calTotalTuition(studentService.getStudents()));
 				studentView.showMessage("Sửa thành công");
 				studentView.clearAllContent();
 			} catch (Exception e2) {
@@ -68,9 +75,12 @@ public class StudentController {
 	class DeleteButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			studentView.showListStudent(studentService.getStudents());
+			studentView.settingTotal();
 			String idSelect = studentView.getDeleteOption();
 			studentService.deleteStudent(idSelect);
 			studentView.showListStudent(studentService.getStudents());
+			studentView.settingTotal();
+			studentView.settingTotal(calTotalTuition(studentService.getStudents()));
 		}
 	}
 
@@ -97,7 +107,20 @@ public class StudentController {
 				studentView.showListStudent(
 						studentService.getStudentsWithFilter("", "", Integer.parseInt(inputSearching), listOption));
 			}
-
+			}
+			else
+			{
+				try {
+					studentView.showListStudent(studentService.getStudentsWithFilter("", "",
+							Integer.parseInt(inputSearching), listOption));
+				} catch (Exception e2) {
+					// TODO: handle exception
+					studentView.showMessage("Hãy nhập số!");
+				}
+			}
+			studentView.settingTotal();
+			studentView.settingTotal(calTotalTuition(studentService.getFilteredStudents()));
+			
 		}
 	}
 
@@ -114,4 +137,15 @@ public class StudentController {
 		}
 		return listOption;
 	}
+	
+	private double calTotalTuition(List<Student> studentList)
+	{
+		double totalTuition = 0;
+		for(Student student : studentList)
+		{
+			totalTuition +=student.getTotalTuition();
+		}
+		return totalTuition;
+	}
+	
 }
