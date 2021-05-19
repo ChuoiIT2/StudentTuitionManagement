@@ -77,14 +77,14 @@ public class StudentView {
 		tablePanel = new JPanel();
 		tablePanel.setBounds(12, 236, 735, 471);
 		tablePanel.setBorder(
-				new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Danh s\u00E1ch sinh vi\u00EAn", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.textHighlight));
+				new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Danh sách sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.textHighlight));
 		frame.getContentPane().add(tablePanel);
 		tablePanel.setLayout(null);
 		// panel chứa thông tin sinh viên
 		studentPanel = new JPanel();
 		studentPanel.setBounds(12, 12, 735, 213);
 		studentPanel.setBorder(
-				new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Th\u00F4ng tin sinh vi\u00EAn", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.textHighlight));
+				new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Thông tin sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.textHighlight));
 		frame.getContentPane().add(studentPanel);
 		studentPanel.setLayout(null);
 
