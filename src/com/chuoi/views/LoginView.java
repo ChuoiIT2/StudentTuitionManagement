@@ -53,7 +53,7 @@ public class LoginView {
 	}
 	private void setContent()
 	{
-		username = new JTextField("Username");
+		username = new JTextField("taikhoan");
 		username.setBounds(211, 124, 219, 26);
 		username.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
@@ -62,7 +62,7 @@ public class LoginView {
 		});
 		frame.getContentPane().add(username);
 		
-		password = new JPasswordField("Yourpassword");
+		password = new JPasswordField("matkhau");
 		password.setBounds(211, 189, 219, 26);
 		password.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt)
@@ -72,7 +72,7 @@ public class LoginView {
 		});
 		frame.getContentPane().add(password);
 		
-		buttonLogin = new JButton("Login");
+		buttonLogin = new JButton("Đăng nhập");
 		buttonLogin.setBounds(180, 294, 250, 40);
 		frame.getContentPane().add(buttonLogin);
 		
@@ -82,7 +82,7 @@ public class LoginView {
 		showMess.setBounds(180, 227, 250, 15);
 		frame.getContentPane().add(showMess);
 		
-		checkbox = new JCheckBox("Show password");
+		checkbox = new JCheckBox("Hiển thị mật khẩu");
 		checkbox.setBounds(180, 260, 250, 26);
 		frame.getContentPane().add(checkbox);
 	}

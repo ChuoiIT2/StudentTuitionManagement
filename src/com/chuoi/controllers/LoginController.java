@@ -27,7 +27,7 @@ public class LoginController {
 		public void actionPerformed(ActionEvent e) {
 			Account account = loginView.getUser();
 			if (!accountService.checkAdminAccount(account.getUsername(), account.getPassword())) {
-				loginView.showMess("Wrong Username or Password!Try again");
+				loginView.showMess("Sai tài khoản hoặc mật khẩu!");
 			} else {
 				loginView.showMess("");
 				showLoginView(!Constant.DEFAULT_FRAME_SHOW);
