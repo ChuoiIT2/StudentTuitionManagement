@@ -1,3 +1,8 @@
+/*
+ * @file : Student.java
+ * @author : Bùi Đức Nhật 20194345
+ * */
+
 package com.chuoi.models;
 
 public class Student {

@@ -1,3 +1,8 @@
+/*
+ * @file : StudentController.java
+ * @author : Ninh Trung Kiên 20194310
+ * */
+
 package com.chuoi.controllers;
 
 import java.awt.event.ActionEvent;
@@ -23,6 +28,7 @@ public class StudentController {
 		studentView.findingButtonListener(new FindingButtonListener());
 	}
 
+	// hiện thị table list các sinh viên
 	public void showStudentAppView() {
 		studentView.setFrameVisible();
 		studentView.showListStudent(studentService.getStudents());
@@ -30,6 +36,7 @@ public class StudentController {
 		studentView.settingTotal(calTotalTuition(studentService.getStudents()));
 	}
 
+	// tạo sự kiện cho nút "Thêm"
 	class AddButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -53,6 +60,7 @@ public class StudentController {
 		}
 	}
 
+	// tạo sự kiện cho nút "Sửa"
 	class EditButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			try {
@@ -72,6 +80,7 @@ public class StudentController {
 
 	}
 
+	// tạo sự kiện cho nút xóa
 	class DeleteButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			studentView.showListStudent(studentService.getStudents());
@@ -84,39 +93,30 @@ public class StudentController {
 		}
 	}
 
+	// tạo sự kiện cho nút tìm
 	class FindingButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String inputSearching = studentView.getInputSearching();
 			int listOption = getListOptionShow();
-			if(studentView.getTitleDisplayComboBox().equals("Học theo TC"))
-			{
+			if (studentView.getTitleDisplayComboBox().equals("Học theo TC")) {
 				listOption = Constant.STUDY_PROGRAM_CREDIT_ID;
-			}
-			else if(studentView.getTitleDisplayComboBox().equals("Học theo CT mẫu"))
-			{
-				listOption =  Constant.STUDY_PROGRAM_MODEL_ID;
-			}
-			else
-			{
+			} else if (studentView.getTitleDisplayComboBox().equals("Học theo CT mẫu")) {
+				listOption = Constant.STUDY_PROGRAM_MODEL_ID;
+			} else {
 				listOption = Constant.DEFAULT_STUDY_PROGRAM_ID;
 			}
-			
-			if(studentView.getTitleFindingComboBox().equals("Theo Tên"))
-			{
+
+			if (studentView.getTitleFindingComboBox().equals("Theo Tên")) {
 				studentView.showListStudent(studentService.getStudentsWithFilter(inputSearching, "",
 						Constant.DEFAULT_CREDIT_COUNT, listOption));
-				
-			}
-			else if(studentView.getTitleFindingComboBox().equals("Theo MSSV"))
-			{
+
+			} else if (studentView.getTitleFindingComboBox().equals("Theo MSSV")) {
 				studentView.showListStudent(studentService.getStudentsWithFilter("", inputSearching,
 						Constant.DEFAULT_CREDIT_COUNT, listOption));
-			}
-			else
-			{
+			} else {
 				try {
-					studentView.showListStudent(studentService.getStudentsWithFilter("", "",
-							Integer.parseInt(inputSearching), listOption));
+					studentView.showListStudent(
+							studentService.getStudentsWithFilter("", "", Integer.parseInt(inputSearching), listOption));
 				} catch (Exception e2) {
 					// TODO: handle exception
 					studentView.showMessage("Hãy nhập số!");
@@ -124,37 +124,32 @@ public class StudentController {
 			}
 			studentView.settingTotal();
 			studentView.settingTotal(calTotalTuition(studentService.getFilteredStudents()));
-			
+
 		}
 	}
-	private int getListOptionShow()
-	{
+
+	// kiểm tra lựa chọn tìm kiếm
+	private int getListOptionShow() {
 		int listOption;
-		if(studentView.getTitleDisplayComboBox().equals("Học theo TC"))
-		{
+		if (studentView.getTitleDisplayComboBox().equals("Học theo TC")) {
 			listOption = Constant.STUDY_PROGRAM_CREDIT_ID;
-		}
-		else if(studentView.getTitleDisplayComboBox().equals("Học theo CT mẫu"))
-		{
-			listOption =  Constant.STUDY_PROGRAM_MODEL_ID;
-		}
-		else
-		{
-			studentView.showListStudent(studentService.getStudentsWithFilter("", "",
-					Constant.DEFAULT_CREDIT_COUNT, Constant.DEFAULT_STUDY_PROGRAM_ID));
+		} else if (studentView.getTitleDisplayComboBox().equals("Học theo CT mẫu")) {
+			listOption = Constant.STUDY_PROGRAM_MODEL_ID;
+		} else {
+			studentView.showListStudent(studentService.getStudentsWithFilter("", "", Constant.DEFAULT_CREDIT_COUNT,
+					Constant.DEFAULT_STUDY_PROGRAM_ID));
 			listOption = Constant.DEFAULT_STUDY_PROGRAM_ID;
 		}
 		return listOption;
 	}
-	
-	private double calTotalTuition(List<Student> studentList)
-	{
+
+	// tạo method tính toán học phí
+	private double calTotalTuition(List<Student> studentList) {
 		double totalTuition = 0;
-		for(Student student : studentList)
-		{
-			totalTuition +=student.getTotalTuition();
+		for (Student student : studentList) {
+			totalTuition += student.getTotalTuition();
 		}
 		return totalTuition;
 	}
-	
+
 }

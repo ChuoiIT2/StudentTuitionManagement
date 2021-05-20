@@ -1,3 +1,9 @@
+/*
+ * @file : StudentView.java
+ * @author : Nguyễn Quốc Toàn 20194386
+ * @author : Ninh Trung Kiên 20194310
+ * */
+
 package com.chuoi.views;
 
 import com.chuoi.models.Student;
@@ -66,6 +72,7 @@ public class StudentView {
 		initialize();
 	}
 
+	// khởi tạo giao diện chính
 	private void initialize() {
 		// set main frame
 		frame = new JFrame();
@@ -76,15 +83,17 @@ public class StudentView {
 		// tạo panel chứa table
 		tablePanel = new JPanel();
 		tablePanel.setBounds(12, 236, 735, 471);
-		tablePanel.setBorder(
-				new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Danh sách sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.textHighlight));
+		tablePanel.setBorder(new TitledBorder(
+				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
+				"Danh sách sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.textHighlight));
 		frame.getContentPane().add(tablePanel);
 		tablePanel.setLayout(null);
 		// panel chứa thông tin sinh viên
 		studentPanel = new JPanel();
 		studentPanel.setBounds(12, 12, 735, 213);
-		studentPanel.setBorder(
-				new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Thông tin sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.textHighlight));
+		studentPanel.setBorder(new TitledBorder(
+				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
+				"Thông tin sinh viên", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.textHighlight));
 		frame.getContentPane().add(studentPanel);
 		studentPanel.setLayout(null);
 
@@ -95,7 +104,7 @@ public class StudentView {
 		frame.setResizable(false);
 	}
 
-	// set label and other component
+	// tạo các component cho Panel chức năng
 	private void setContentPanel() {
 		setName = new JTextField();
 		setName.setBorder(UIManager.getBorder("ToolTip.border"));
@@ -313,6 +322,7 @@ public class StudentView {
 
 	}
 
+	// lấy thông tin người dùng nhập để xử lý
 	public Student getStudentInfo() {
 		String studentCode = setStudentCode.getText();
 		String studentName = setName.getText();
@@ -325,6 +335,7 @@ public class StudentView {
 		return student;
 	}
 
+	// hiện thị list sinh viên do người dùng nhập vào
 	public void showListStudent(List<Student> studentList) {
 		int size = studentList.size();
 		/*
@@ -348,27 +359,24 @@ public class StudentView {
 			}
 			students[i][4] = studentList.get(i).getCreditCount();
 			students[i][5] = studentList.get(i).getSubjectCount();
-			students[i][6] = (int)studentList.get(i).getTotalTuition();
+			students[i][6] = (int) studentList.get(i).getTotalTuition();
 			model.addRow(students[i]);
 		}
 	}
 
+	// gửi thông báo hiện thị
 	public void showMessage(String message) {
 		JOptionPane.showMessageDialog(null, message);
 	}
 
+	// lấy MSSV người dùng muốn xóa
 	public String getDeleteOption() {
 		String idSelect = JOptionPane.showInputDialog(frame, "Nhập MSSV muốn xóa: ", "Xóa sinh viên",
 				JOptionPane.DEFAULT_OPTION);
 		return idSelect;
 	}
 
-	public String searchByName() {
-		String name = JOptionPane.showInputDialog(frame, "Nhập tên muốn tìm: ", "Tìm kiếm bằng tên",
-				JOptionPane.DEFAULT_OPTION);
-		return name;
-	}
-
+	// xóa thông tin do người dùng nhập vào
 	public void clearAllContent() {
 		setName.setText("");
 		setMajor.setText("");
@@ -380,6 +388,7 @@ public class StudentView {
 		setSubject.setText("");
 	}
 
+	// lấy thông tin lựa chọn mà người dùng muốn tìm kiếm
 	public String getTitleDisplayComboBox() {
 		String displayTitle = String.valueOf(displayComboBox.getSelectedItem());
 		return displayTitle;
@@ -390,6 +399,7 @@ public class StudentView {
 		return findingTitle;
 	}
 
+	// lấy thông tin người dùng nhập vào tìm kiếm
 	public String getInputSearching() {
 		String inputSearch = setFinding.getText();
 		return inputSearch;
@@ -411,17 +421,19 @@ public class StudentView {
 	public void findingButtonListener(ActionListener listener) {
 		findingButton.addActionListener(listener);
 	}
-	public void settingTotal()
-	{
+
+	// hai method overloading, tính tổng sinh viên và tổng học phí
+	public void settingTotal() {
 		int rows = table.getRowCount();
 		setCountNumber.setText(String.valueOf(rows));
 	}
-	
-	public void settingTotal(double total)
-	{
-		int totalTuition = (int)total;
+
+	public void settingTotal(double total) {
+		int totalTuition = (int) total;
 		setTotalTuition.setText(String.valueOf(totalTuition));
 	}
+
+	// khởi động giao diện đăng nhập
 	public void setFrameVisible() {
 		frame.setVisible(true);
 	}

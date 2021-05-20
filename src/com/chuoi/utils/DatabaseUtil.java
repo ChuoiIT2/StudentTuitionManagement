@@ -1,3 +1,8 @@
+/*
+ * @file: DatabaseUtil.java
+ * @author: Bùi Đức Nhật 20194345
+ * */
+
 package com.chuoi.utils;
 
 import java.io.File;

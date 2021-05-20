@@ -1,3 +1,8 @@
+/*
+ * @file : LoginController.java
+ * @author : Ninh Trung Kiên 20194310
+ * */
+
 package com.chuoi.controllers;
 
 import com.chuoi.views.LoginView;
@@ -19,10 +24,12 @@ public class LoginController {
 		loginView.addLoginListener(new LoginListener());
 	}
 
+	// khởi động giao diện đăng nhập
 	public void showLoginView(boolean setFrame) {
 		loginView.setFrameVisible(setFrame);
 	}
 
+	// tạo sự kiện cho nút "Đăng nhập"
 	class LoginListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Account account = loginView.getUser();

@@ -1,3 +1,8 @@
+/*
+ * @file : LoginView.java
+ * @author : Ninh Trung Kiên 20194310
+ * */
+
 package com.chuoi.views;
 
 import java.awt.Color;
@@ -40,13 +45,14 @@ public class LoginView {
 	{
 		initialize();
 	}
+	// khởi tạo giao diện chính
 	private void initialize()
 	{
 		frame = new JFrame("Đăng nhập");
 		frame.setBounds(100, 100, 600, 400);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-		
+		// method tạo các component
 		setContent();
 		setLogoIcon();
 		setActionListener();
@@ -113,19 +119,20 @@ public class LoginView {
 		labelPassIcon.setIcon(new ImageIcon(img_pass));
 		frame.getContentPane().add(labelPassIcon);
 	}
-	
+	// lấy thông tin đăng nhập để xử lý
 	public Account getUser()
 	{
 		@SuppressWarnings("deprecation")
 		Account admin = new Account(username.getText(),password.getText());
 		return admin;
 	}
-	
+	// gửi thông báo hiện thỉ
 	public void showMess(String mess)
 	{
 		showMess.setText(mess);
 	}
 	
+	// tạo các sự kiện cho phím chức năng
 	private void setActionListener()
 	{
 		buttonLogin.addActionListener(new ActionListener() {
@@ -148,6 +155,7 @@ public class LoginView {
 			}
 		});
 	}
+
 	public void addLoginListener(ActionListener e) {
 		buttonLogin.addActionListener(e);
 	}
