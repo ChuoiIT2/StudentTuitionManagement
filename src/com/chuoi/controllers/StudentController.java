@@ -88,29 +88,25 @@ public class StudentController {
 		public void actionPerformed(ActionEvent e) {
 			String inputSearching = studentView.getInputSearching();
 			int listOption = getListOptionShow();
-			if(studentView.getTitleDisplayComboBox().equals("Học theo TC"))
-			{
+			if (studentView.getTitleDisplayComboBox().equals("Học theo TC")) {
 				listOption = Constant.STUDY_PROGRAM_CREDIT_ID;
-			}
-			else if(studentView.getTitleDisplayComboBox().equals("Học theo CT mẫu"))
-			{
-				listOption =  Constant.STUDY_PROGRAM_MODEL_ID;
-			}
-			else
-			{
+			} else if (studentView.getTitleDisplayComboBox().equals("Học theo CT mẫu")) {
+				listOption = Constant.STUDY_PROGRAM_MODEL_ID;
+			} else {
 				listOption = Constant.DEFAULT_STUDY_PROGRAM_ID;
 			}
-			
-			if(studentView.getTitleFindingComboBox().equals("Theo Tên"))
-			{
+
+			if (studentView.getTitleFindingComboBox().equals("Theo Tên")) {
 				studentView.showListStudent(studentService.getStudentsWithFilter(inputSearching, "",
 						Constant.DEFAULT_CREDIT_COUNT, listOption));
-				
-			}
-			else if(studentView.getTitleFindingComboBox().equals("Theo MSSV"))
-			{
+
+			} else if (studentView.getTitleFindingComboBox().equals("Theo MSSV")) {
 				studentView.showListStudent(studentService.getStudentsWithFilter("", inputSearching,
 						Constant.DEFAULT_CREDIT_COUNT, listOption));
+			} else {
+				studentView.showListStudent(
+						studentService.getStudentsWithFilter("", "", Integer.parseInt(inputSearching), listOption));
+			}
 			}
 			else
 			{
@@ -127,21 +123,16 @@ public class StudentController {
 			
 		}
 	}
-	private int getListOptionShow()
-	{
+
+	private int getListOptionShow() {
 		int listOption;
-		if(studentView.getTitleDisplayComboBox().equals("Học theo TC"))
-		{
+		if (studentView.getTitleDisplayComboBox().equals("Học theo TC")) {
 			listOption = Constant.STUDY_PROGRAM_CREDIT_ID;
-		}
-		else if(studentView.getTitleDisplayComboBox().equals("Học theo CT mẫu"))
-		{
-			listOption =  Constant.STUDY_PROGRAM_MODEL_ID;
-		}
-		else
-		{
-			studentView.showListStudent(studentService.getStudentsWithFilter("", "",
-					Constant.DEFAULT_CREDIT_COUNT, Constant.DEFAULT_STUDY_PROGRAM_ID));
+		} else if (studentView.getTitleDisplayComboBox().equals("Học theo CT mẫu")) {
+			listOption = Constant.STUDY_PROGRAM_MODEL_ID;
+		} else {
+			studentView.showListStudent(studentService.getStudentsWithFilter("", "", Constant.DEFAULT_CREDIT_COUNT,
+					Constant.DEFAULT_STUDY_PROGRAM_ID));
 			listOption = Constant.DEFAULT_STUDY_PROGRAM_ID;
 		}
 		return listOption;
